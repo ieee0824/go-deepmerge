@@ -1,8 +1,8 @@
 package deepmerge
 
 import (
-	"reflect"
 	"errors"
+	"reflect"
 )
 
 var (
@@ -11,7 +11,6 @@ var (
 
 func convertSlice(i interface{}) []interface{} {
 	ret := []interface{}{}
-
 
 	switch i.(type) {
 	case []interface{}:
