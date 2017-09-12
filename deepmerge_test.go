@@ -1,22 +1,22 @@
 package deepmerge
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 func TestMerge(t *testing.T) {
-	tests := []struct{
-		src interface{}
-		dst interface{}
+	tests := []struct {
+		src  interface{}
+		dst  interface{}
 		want interface{}
-		err bool
-	} {
+		err  bool
+	}{
 		{
-			src: []interface{}{1, 1, 2, 3, 5, 8},
-			dst: []interface{}{1, 1, 2, 3, 5, 8},
+			src:  []interface{}{1, 1, 2, 3, 5, 8},
+			dst:  []interface{}{1, 1, 2, 3, 5, 8},
 			want: []interface{}{1, 1, 2, 3, 5, 8, 1, 1, 2, 3, 5, 8},
-			err: false,
+			err:  false,
 		},
 		{
 			src: []interface{}{
@@ -36,84 +36,79 @@ func TestMerge(t *testing.T) {
 			err: false,
 		},
 		{
-			src: map[string] interface{}{
+			src: map[string]interface{}{
 				"hoge": "hoge",
 			},
-			dst: map[string] interface{}{
+			dst: map[string]interface{}{
 				"hoge": "hoge",
 			},
-			want: map[string] interface{}{
+			want: map[string]interface{}{
 				"hoge": "hoge",
 			},
 			err: false,
 		},
 		{
-			src: map[string] interface{}{
-				"hoge": "hoge",
+			src: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []string{"hoge", "huga"},
 			},
-			dst: map[string] interface{}{
-				"hoge": "hoge",
+			dst: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []string{"hoge", "huga"},
 			},
-			want: map[string] interface{}{
-				"hoge": "hoge",
+			want: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []interface{}{"hoge", "huga", "hoge", "huga"},
-
 			},
 			err: false,
 		},
 		{
-			src: map[string] interface{}{
-				"hoge": "hoge",
+			src: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []string{"hoge", "huga"},
 			},
-			dst: map[string] interface{}{
-				"hoge": "hoge",
+			dst: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []interface{}{"hoge", "huga", 1},
-
 			},
-			want: map[string] interface{}{
-				"hoge": "hoge",
+			want: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []interface{}{"hoge", "huga", "hoge", "huga", 1},
-
 			},
 			err: false,
 		},
 		{
-			src: map[string] interface{}{
-				"hoge": "hoge",
+			src: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []string{"hoge", "huga"},
 			},
-			dst: map[string] interface{}{
-				"hoge": "hoge",
+			dst: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []interface{}{"hoge", "huga", 1},
-				"byte" : []byte{0xff, 0x00},
-
+				"byte":  []byte{0xff, 0x00},
 			},
-			want: map[string] interface{}{
-				"hoge": "hoge",
+			want: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []interface{}{"hoge", "huga", "hoge", "huga", 1},
-				"byte" : []byte{0xff, 0x00},
+				"byte":  []byte{0xff, 0x00},
 			},
 			err: false,
 		},
 		{
-			src: map[string] interface{}{
-				"hoge": "hoge",
+			src: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []string{"hoge", "huga"},
-				"byte" : []byte{0xff, 0x00},
+				"byte":  []byte{0xff, 0x00},
 			},
-			dst: map[string] interface{}{
-				"hoge": "hoge",
+			dst: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []interface{}{"hoge", "huga", 1},
-				"byte" : []byte{0xff, 0x00},
-
+				"byte":  []byte{0xff, 0x00},
 			},
-			want: map[string] interface{}{
-				"hoge": "hoge",
+			want: map[string]interface{}{
+				"hoge":  "hoge",
 				"array": []interface{}{"hoge", "huga", "hoge", "huga", 1},
-				"byte" : []interface{}{[]byte{0xff, 0x00}, []byte{0xff, 0x00}},
+				"byte":  []interface{}{[]byte{0xff, 0x00}, []byte{0xff, 0x00}},
 			},
 			err: false,
 		},
@@ -126,16 +121,16 @@ func TestMerge(t *testing.T) {
 			err: false,
 		},
 		{
-			src: "hoge",
-			dst: "hoge",
+			src:  "hoge",
+			dst:  "hoge",
 			want: "hoge",
-			err: false,
+			err:  false,
 		},
 		{
 			src: map[string]interface{}{
 				"hoge": "huga",
 				"map": map[string]interface{}{
-					"foo": "bar",
+					"foo":  "bar",
 					"john": "doe",
 				},
 			},
@@ -149,7 +144,7 @@ func TestMerge(t *testing.T) {
 			want: map[string]interface{}{
 				"hoge": "huga",
 				"map": map[string]interface{}{
-					"foo": "bar",
+					"foo":  "bar",
 					"fizz": "buzz",
 					"john": "doe",
 				},
@@ -162,7 +157,6 @@ func TestMerge(t *testing.T) {
 			err: true,
 		},
 	}
-
 
 	for _, test := range tests {
 		got, err := Merge(test.src, test.dst)

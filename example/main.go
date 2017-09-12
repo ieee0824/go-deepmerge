@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"log"
-	"github.com/ieee0824/go-deepmerge"
 	"fmt"
+	"github.com/ieee0824/go-deepmerge"
+	"log"
 )
 
 func main() {
